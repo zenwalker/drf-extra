@@ -1,6 +1,6 @@
-from rest_framework import viewsets
-from rest_framework import generics
-from rest_framework import mixins
+from rest_framework import viewsets, generics, mixins, exceptions
+from rest_framework.compat import set_rollback
+from rest_framework.response import Response
 
 
 class ModelView(
@@ -39,3 +39,26 @@ class ModelViewSet(viewsets.ModelViewSet):
             if self.update_serializer:
                 return self.update_serializer
             return self.detail_serializer
+
+
+def full_exception_handler(exc, context):
+    """
+    Transform dict-like error-messages to flat list.
+    """
+    if isinstance(exc, exceptions.APIException):
+        set_rollback()
+
+        data = exc.get_full_details()
+        errors = data
+
+        if isinstance(exc.detail, dict):
+            errors = []
+            for field_name, values in data.items():
+                for value in values.copy():
+                    if field_name != 'non_field_errors':
+                        value['field'] = field_name
+                    errors.append(value)
+
+        return Response(errors, status=exc.status_code)
+
+    return None
