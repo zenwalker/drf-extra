@@ -33,7 +33,7 @@ class QuerySetFilterBackend(BaseFilterBackend):
         if required_fields:
             query_keys = set(sum([list(q.keys()) for q in queries], []))
             if len(query_keys.intersection(required_fields)) != len(required_fields):
-                raise FilterException('Filter field(s) [{}] is required.'.format(', '.join(required_fields)))
+                raise FilterException('Filter field(s) {} is required.'.format(', '.join(required_fields)))
 
         if queries:
             try:

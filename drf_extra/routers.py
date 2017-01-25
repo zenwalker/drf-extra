@@ -10,13 +10,13 @@ class RestRouter(routers.SimpleRouter):
                 'get': 'list',
                 'post': 'create'
             },
-            name='{basename}-list',
+            name='{basename}_list',
             initkwargs={'suffix': 'List'},
         ),
         # dynamic list
         routers.DynamicListRoute(
             url=r'^{prefix}/{methodname}/?$',
-            name='{basename}-{methodnamehyphen}',
+            name='{basename}_{methodnamehyphen}',
             initkwargs={},
         ),
         # detail
@@ -28,13 +28,13 @@ class RestRouter(routers.SimpleRouter):
                 'patch': 'partial_update',
                 'delete': 'destroy',
             },
-            name='{basename}-detail',
+            name='{basename}_detail',
             initkwargs={'suffix': 'Instance'},
         ),
         # dynamic detail
         routers.DynamicDetailRoute(
             url=r'^{prefix}/{lookup}/{methodname}/?$',
-            name='{basename}-{methodnamehyphen}',
+            name='{basename}_{methodnamehyphen}',
             initkwargs={},
         ),
     ]
