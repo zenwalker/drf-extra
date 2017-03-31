@@ -15,8 +15,8 @@ class RestRouter(routers.SimpleRouter):
         ),
         # dynamic list
         routers.DynamicListRoute(
-            url=r'^{prefix}/{methodname}/?$',
-            name='{basename}_{methodnamehyphen}',
+            url=r'^{prefix}/{methodnamehyphen}/?$',
+            name='{basename}_{methodname}',
             initkwargs={},
         ),
         # detail
@@ -33,8 +33,8 @@ class RestRouter(routers.SimpleRouter):
         ),
         # dynamic detail
         routers.DynamicDetailRoute(
-            url=r'^{prefix}/{lookup}/{methodname}/?$',
-            name='{basename}_{methodnamehyphen}',
+            url=r'^{prefix}/{lookup}/{methodnamehyphen}/?$',
+            name='{basename}_{methodname}',
             initkwargs={},
         ),
     ]
